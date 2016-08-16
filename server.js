@@ -9,6 +9,9 @@ app.get('*',(req,res) => {
 res.render('index');
 });
 
-app.listen(3000,function(){
+const port = process.env.port || 3000;
+const host = process.env.IP || '127.0.0.1';
+
+app.listen(port,host,function(){
 console.log('server is up!!!');
 });

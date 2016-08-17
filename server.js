@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const jobModel = require('./models/job');
-
+const config = require('./config.'+(process.env.NODE_ENV||"js"));
 
 app.set('views',__dirname);
 app.set('view engine','jade');
@@ -18,10 +18,10 @@ app.get('*',(req,res) => {
 res.render('index');
 });
 
-const port = process.env.PORT || 3000;
-const host = process.env.IP || '127.0.0.1';
 
-mongoose.connect('mongodb://admin:1234@ds161475.mlab.com:61475/jobfindertest');
+
+const port = config.port;
+mongoose.connect(config.mongoUrl);
 const connection = mongoose.connection;
 connection.once('open',() => {
   console.log('connected succesfully');
@@ -29,7 +29,7 @@ connection.once('open',() => {
 });
 
 app.listen(port,function(){
-  console.log(port);
-  console.log(host);
+  console.log(config);
+  console.log(config.port);
 console.log('server is up!!!');
 });

@@ -9,13 +9,13 @@ app.set('views',__dirname);
 app.set('view engine','jade');
 app.use(express.static(__dirname + '/public'));
 app.get('/api/jobs',(req,res) => {
- jobModel.model.find({},(req, collection) => {
+  jobModel.model.find({},(err, collection) => {
     res.send(collection);
- });
+  });
 
 });
 app.get('*',(req,res) => {
-res.render('index');
+  res.render('index');
 });
 
 
@@ -31,5 +31,5 @@ connection.once('open',() => {
 app.listen(port,function(){
   console.log(config);
   console.log(config.port);
-console.log('server is up!!!');
+  console.log('server is up!!!');
 });

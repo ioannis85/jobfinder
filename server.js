@@ -1,9 +1,9 @@
 'use strict';
-const express = require('express');
-const app = express();
-const jobModel = require('./models/job');
-const config = require('./config.'+(process.env.NODE_ENV||"js"));
-const jobsData = require('./jobs-data');
+var express = require('express');
+var app = express();
+var jobModel = require('./models/job');
+var config = require('./config.'+(process.env.NODE_ENV||"js"));
+var jobsData = require('./jobs-data');
 
 
 app.set('views', __dirname);
@@ -21,7 +21,7 @@ app.get('*',(req,res) => {
   res.render('index');
 });
 
-const port = config.port;
+var port = config.port;
 
 jobsData.connectDB(config.mongoUrl).then(()=>{
   console.log('connected succesfully');

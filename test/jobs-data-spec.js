@@ -1,9 +1,9 @@
 'use strict';
-const expect = require('chai').expect;
-const mongoose = require('mongoose');
-const jobModel = require('../models/job');
-const Promise = require('bluebird');
-const jobsData = require('../jobs-data');
+var expect = require('chai').expect;
+var mongoose = require('mongoose');
+var jobModel = require('../models/job');
+var Promise = require('bluebird');
+var jobsData = require('../jobs-data');
 mongoose.Promise = Promise;
 
 function resetJobs(){
@@ -11,7 +11,7 @@ function resetJobs(){
 }
 
 describe('get jobs',()=>{
-  let jobs;
+  var jobs;
   before((done)=>{
     jobsData.connectDB('mongodb://localhost/jobfinder')
     .then(resetJobs)

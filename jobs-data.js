@@ -1,9 +1,9 @@
 'use strict';
-const mongoose = require('mongoose');
-const Promise = require('bluebird');
+var mongoose = require('mongoose');
+var Promise = require('bluebird');
 mongoose.Promise = Promise;
 
-const Job =   mongoose.model('Job');
+var Job =   mongoose.model('Job');
 
 function findJobs(query){
   return new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ module.exports.connectDB = (url)=>{
 return mongoose.connect(url);
 }
 
-const jobs = [ {title:'Cook', description : 'You will be making bagels'},
+var jobs = [ {title:'Cook', description : 'You will be making bagels'},
         {title:'Programmer', description : 'Node Programmer'},
         {title:'Programmer', description : 'sr. Software developer C#'},
           {title:'Programmer', description : 'sr. Software developer Go'}

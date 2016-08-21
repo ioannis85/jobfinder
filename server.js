@@ -1,32 +1,32 @@
 'use strict';
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const jobModel = require('./models/job');
 const config = require('./config.'+(process.env.NODE_ENV||"js"));
+const jobsData = require('./jobs-data');
 
-app.set('views',__dirname);
+
+app.set('views', __dirname);
 app.set('view engine','jade');
 app.use(express.static(__dirname + '/public'));
-app.get('/api/jobs',(req,res) => {
-  jobModel.model.find({},(err, collection) => {
-    res.send(collection);
-  });
 
+app.get('/api/jobs',(req,res) => {
+
+  jobsData.findJobs().then((collection)=>{
+    res.send(collection);
+  })
 });
+
 app.get('*',(req,res) => {
   res.render('index');
 });
 
-
-
 const port = config.port;
-mongoose.connect(config.mongoUrl);
-const connection = mongoose.connection;
-connection.once('open',() => {
+
+jobsData.connectDB(config.mongoUrl).then(()=>{
   console.log('connected succesfully');
-  jobModel.seedJobs();
-});
+  jobsData.seedJobs();
+})
 
 app.listen(port,function(){
   console.log(config);

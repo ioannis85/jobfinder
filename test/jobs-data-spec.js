@@ -3,33 +3,20 @@ const expect = require('chai').expect;
 const mongoose = require('mongoose');
 const jobModel = require('../models/job');
 const Promise = require('bluebird');
+const jobsData = require('../jobs-data');
 mongoose.Promise = Promise;
 
 function resetJobs(){
   return  mongoose.connection.collections['jobs'].drop();
 }
 
-function findJobs(query){
-  return new Promise((resolve, reject) => {
-    jobModel.model.find(query).exec((err, collection) =>{
-      if(err){
-        reject(err);
-      }
-      resolve(collection);
-    });
-  });
-}
-
-
 describe('get jobs',()=>{
-
   let jobs;
-
   before((done)=>{
-    mongoose.connect('mongodb://localhost/jobfinder')
+    jobsData.connectDB('mongodb://localhost/jobfinder')
     .then(resetJobs)
-    .then(jobModel.seedJobs)
-    .then(findJobs)
+    .then(jobsData.seedJobs)
+    .then(jobsData.findJobs)
     .then((jobList)=>{
       jobs = jobList;
       done();

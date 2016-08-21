@@ -13,7 +13,7 @@ function resetJobs(){
 describe('get jobs',()=>{
   var jobs;
   before((done)=>{
-    jobsData.connectDB('mongodb://localhost/jobfinder')
+    jobsData.connectDB('mongodb://localshost/jobfinder')
     .then(resetJobs)
     .then(jobsData.seedJobs)
     .then(jobsData.findJobs)

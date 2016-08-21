@@ -7,14 +7,16 @@ var jobsData = require('../jobs-data');
 mongoose.Promise = Promise;
 
 function resetJobs(){
-  return  mongoose.connection.collections['jobs'].drop();
+  return new Promise((resolve, reject) => {
+      mongoose.connection.collections['jobs'].drop(resolve, reject);
+  });
 }
 
 describe('get jobs',()=>{
   var jobs;
   before((done)=>{
     jobsData.connectDB('mongodb://localhost/jobfinder')
-  //  .then(resetJobs)
+   .then(resetJobs)
     .then(jobsData.seedJobs)
     .then(jobsData.findJobs)
     .then((jobList)=>{

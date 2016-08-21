@@ -8,5 +8,5 @@ body(ng-app='app')
   div(ng-controller='testCtrl')
       .list-group
           a.list-group-item(href='#')(ng-repeat='job in jobs')
-              h4.list-group-item-heading id:{{ $index }} {{ job.title }}
+              h4.list-group-item-heading  {{ job.title }}
               p.list-group-item-text{{ job.description }}
